@@ -12,11 +12,11 @@ import { MyRoom } from "./MyRoom";
 const port = Number(process.env.PORT || 2567);
 const app = express()
 
-const RedisStore = connectRedis(session);
-const redisClient = redis.createClient();
+// const RedisStore = connectRedis(session);
+// const redisClient = redis.createClient();
 const sessionParser = session({
   secret: "xxx secret xxx",
-  store: new RedisStore({ client: redisClient })
+  // store: new RedisStore({ client: redisClient })
 });
 
 app.use(express.json())
