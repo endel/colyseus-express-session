@@ -9,6 +9,17 @@ import connectRedis from "connect-redis";
 
 import { MyRoom } from "./MyRoom";
 
+//
+// OPTIONAL:
+// - Augments built-in Node.js IncomingMessage to include "session"
+// - Lets TypeScript recognize "request.session" during onAuth()
+//
+declare module "http" {
+  interface IncomingMessage {
+    session: Express.Session;
+  }
+}
+
 const port = Number(process.env.PORT || 2567);
 const app = express()
 
@@ -37,7 +48,7 @@ const server = http.createServer(app);
 const gameServer = new Server({
   server,
   verifyClient: (info, next) => {
-    console.log("Let's verify client...", info);
+    // Make "session" available for the WebSocket connection (during onAuth())
     sessionParser(info.req as any, {} as any, () => next(true));
   }
 });

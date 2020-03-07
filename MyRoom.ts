@@ -7,7 +7,7 @@ export class MyRoom extends Room {
   }
 
   onAuth(client: Client, options: any, request: http.IncomingMessage) {
-    const session = (request as any).session;
+    const session = request.session;
     console.log(session);
 
     // send entire session back to the client for demonstration purposes
