@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- colyseus.js client -->
+    <script type="text/javascript" src="https://raw.githack.com/colyseus/colyseus.js/master/dist/colyseus.js"></script>
+  </head>
+
+  <h1>colyseus + express-session</h1>
+  <div id="session-data"></div>
+
+  <body>
+    <script>
+      var host = window.document.location.host.replace(/:.*/, '');
+
+      var client = new Colyseus.Client(location.protocol.replace("http", "ws") + "//" + host + (location.port ? ':'+location.port : ''));
+      client.joinOrCreate("my_room").then(room => {
+        console.log("JOINED ROOM");
+        room.onMessage((message) => {
+          document.getElementById('session-data').innerText = JSON.stringify(message);
+        });
+      });
+    </script>
+  </body>
+</html>
